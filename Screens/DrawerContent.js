@@ -80,7 +80,7 @@ export default function DrawerContent(props) {
                                 <Ionicons name="settings-outline" size={26} color="#47bfff" />
                             )}
                             label="Settings"
-                            onPress={() => {props.navigation.navigate('SettingScreen')}}
+                            onPress={() => {props.navigation.navigate('Settings')}}
                         />
                         
                         <DrawerItem 

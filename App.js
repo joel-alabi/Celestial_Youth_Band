@@ -18,14 +18,20 @@ export default function App() {
   return (
     <View style={styles.container}>
       <StatusBar style="auto" />
-      <NavigationContainer >
+      {/*
+      
+       <NavigationContainer >
         <Drawer.Navigator drawerContent={props => <DrawerContent {...props} />}>
           <Drawer.Screen name="MainScreen" component={MainScreen} />
-          <Drawer.Screen name="SettingScreen" component={SettingScreen} />
+          <Drawer.Screen name="SETTINGS" component={SettingScreen} />
           <Drawer.Screen name="Help" component={HelpScreen} />
           <Drawer.Screen name="profile" component={Profile}/>
         </Drawer.Navigator>
     </NavigationContainer>
+      
+      */}
+     
+    <RooterScreen/>
     </View>
   );
 }

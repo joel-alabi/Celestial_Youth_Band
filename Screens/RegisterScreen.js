@@ -64,7 +64,7 @@ export default function RegisterScreen({ navigation }) {
               style={styles.inputIcon}
               name='person'
               type='ionicons'
-              color='#5352ed'
+              color='#47bfff'
             />
             <TextInput
               style={styles.input}
@@ -78,7 +78,7 @@ export default function RegisterScreen({ navigation }) {
               style={styles.inputIcon}
               name='mail'
               type='ionicons'
-              color='#5352ed'
+              color='#47bfff'
             />
             <TextInput
               style={styles.input}
@@ -93,7 +93,7 @@ export default function RegisterScreen({ navigation }) {
               style={styles.inputIcon}
               name='lock'
               type='ionicons'
-              color='#5352ed'
+              color='#47bfff'
             />
             <TextInput
               style={styles.input}
@@ -107,7 +107,7 @@ export default function RegisterScreen({ navigation }) {
               style={styles.inputIcon}
               name='lock'
               type='ionicons'
-              color='#5352ed'
+              color='#47bfff'
             />
             <TextInput
               style={styles.input}
@@ -212,7 +212,7 @@ const styles = StyleSheet.create({
     color: '#333',
   },
   loginButton: {
-    backgroundColor: '#5352ed',
+    backgroundColor: '#47bfff',
     paddingVertical: 10,
     borderRadius: 8,
     marginTop: 10,
@@ -223,7 +223,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     paddingVertical: 10,
     borderRadius: 8,
-    borderColor:'#5352ed',
+    borderColor:'#47bfff',
     marginTop: 10,
     borderWidth: 1,
   },
@@ -234,7 +234,7 @@ const styles = StyleSheet.create({
     fontSize: 18,
   },
   loginButtonText1: {
-    color: '#5352ed',
+    color: '#47bfff',
     fontFamily: 'SourceSansProBold',
     alignSelf: 'center',
     fontSize: 18,
@@ -250,7 +250,7 @@ const styles = StyleSheet.create({
     alignSelf: 'flex-end',
     fontFamily: 'SourceSansProBold',
     fontSize: 16,
-    color: '#5352ed',
+    color: '#47bfff',
   },
 });
 
