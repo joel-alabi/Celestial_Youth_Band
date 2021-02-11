@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{Component} from 'react';
 import {
   StyleSheet,
   Text,
@@ -11,34 +11,31 @@ import {
   Keyboard,
 } from 'react-native';
 
-// You can use your custom background image
-import BackgroundImage from '../assets/ryan-christodoulou-Vra_DPrrBlE-unsplash.jpg';
-
-// expo install expo-font
-import { useFonts } from 'expo-font';
-
-// https://fonts.google.com/specimen/Source+Sans+Pro
-import SourceSansProLight from '../assets/SourceSansPro-Light.ttf';
-import SourceSansProRegular from '../assets/SourceSansPro-Regular.ttf';
-import SourceSansProBold from '../assets/SourceSansPro-Bold.ttf';
-
 // npm install react-native-elements
 import { Icon } from 'react-native-elements';
 
 // npm install react-native-animatable
 import * as Animatable from 'react-native-animatable';
+import {connect} from 'react-redux'
+import {loginEmailAccount} from '../src/redux/actions/authActions'
 
-export default function LoginScreen({ navigation }) {
-  const [loaded] = useFonts({
-    SourceSansProLight,
-    SourceSansProRegular,
-    SourceSansProBold,
-  });
-
-  if (!loaded || !BackgroundImage) {
-    return <Text>Loading...</Text>;
+class LoginScreen extends Component {
+  constructor(props){
+    super(props)
+    this.state={
+      email:"",
+      password:"",
+    }
   }
-
+handleUpdateState=(name,value)=>{
+this.setState({
+[name]:value
+})
+}
+handleOnSubmit = ()=>{
+this.props.loginEmailAccount(this.state.email,this.state.password)
+}
+ render(){const { navigation,auth } = this.props
   return (
     <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
    
@@ -56,7 +53,10 @@ export default function LoginScreen({ navigation }) {
             animation="fadeInUpBig"
             style={styles.footer}
         >
-          <Text style={styles.loginText}>Login</Text>
+         {
+        auth.error.login && 
+         <Text style={{color:'red',textAlign:'center'}}>{auth.error.login}</Text>
+        }
           <View style={styles.inputView}>
             <Icon
               style={styles.inputIcon}
@@ -70,6 +70,10 @@ export default function LoginScreen({ navigation }) {
               autoCapitalize='none'
               keyboardType='email-address'
               textContentType='emailAddress'
+              value={this.state.email}
+              onChangeText={(text)=>{
+                this.handleUpdateState('email',text)
+                }}
             />
           </View>
           <View style={styles.inputView}>
@@ -84,11 +88,15 @@ export default function LoginScreen({ navigation }) {
               placeholder='Password'
               secureTextEntry={true}
               autoCapitalize='none'
+              value={this.state.password}
+              onChangeText={(text)=>{
+                this.handleUpdateState('password',text)
+                }}
             />
           </View>
           <Text style={styles.fpText}>Forgot Password?</Text>
           <TouchableOpacity style={styles.loginButton} 
-           onPress={() => navigation.navigate('Home')}
+           onPress={this.handleOnSubmit}
           >
             <Text style={styles.loginButtonText}>Login</Text>
           </TouchableOpacity>
@@ -102,7 +110,7 @@ export default function LoginScreen({ navigation }) {
     </TouchableWithoutFeedback>
   );
 }
-
+}
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -129,7 +137,6 @@ titleText: {
   alignSelf: 'center',
   textAlign:'center',
   color: 'white',
-  fontFamily: 'SourceSansProBold',
   fontSize: 40,
   shadowColor: '#000',
   shadowOffset: {
@@ -156,7 +163,7 @@ titleText: {
     paddingHorizontal: 20,
   },
   loginText: {
-    fontFamily: 'SourceSansProBold',
+
     fontSize: 24,
     marginTop: 12,
     marginBottom: 4,
@@ -199,13 +206,13 @@ titleText: {
   },
   loginButtonText: {
     color: '#fff',
-    fontFamily: 'SourceSansProBold',
+
     alignSelf: 'center',
     fontSize: 18,
   },
   loginButtonText1: {
     color: '#47bfff',
-    fontFamily: 'SourceSansProBold',
+
     alignSelf: 'center',
     fontSize: 18,
   },
@@ -218,12 +225,14 @@ titleText: {
   fpText: {
     marginTop: 10,
     alignSelf: 'flex-end',
-    fontFamily: 'SourceSansProBold',
+
     fontSize: 16,
     color: '#47bfff',
   },
 });
 
-
+const mapStateToProp =(state)=>{
+  return{auth:state}
+}
   
-  
+export default  connect(mapStateToProp,{loginEmailAccount})(LoginScreen);

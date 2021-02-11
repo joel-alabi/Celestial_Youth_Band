@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{Component} from 'react';
 import {
   StyleSheet,
   Text,
@@ -10,35 +10,40 @@ import {
   Dimensions,
   Keyboard,
 } from 'react-native';
-import { StatusBar } from 'expo-status-bar';
-// You can use your custom background image
-import BackgroundImage from '../assets/ryan-christodoulou-Vra_DPrrBlE-unsplash.jpg';
 
-// expo install expo-font
-import { useFonts } from 'expo-font';
-
-// https://fonts.google.com/specimen/Source+Sans+Pro
-import SourceSansProLight from '../assets/SourceSansPro-Light.ttf';
-import SourceSansProRegular from '../assets/SourceSansPro-Regular.ttf';
-import SourceSansProBold from '../assets/SourceSansPro-Bold.ttf';
 
 // npm install react-native-elements
 import { Icon } from 'react-native-elements';
 
 // npm install react-native-animatable
 import * as Animatable from 'react-native-animatable';
+import { connect } from 'react-redux';
+import {createEmailAccount,registerError} from '../src/redux/actions/authActions'
 
-export default function RegisterScreen({ navigation }) {
-  const [loaded] = useFonts({
-    SourceSansProLight,
-    SourceSansProRegular,
-    SourceSansProBold,
-  });
 
-  if (!loaded || !BackgroundImage) {
-    return <Text>Loading...</Text>;
+class RegisterScreen extends Component {
+        constructor(props){
+          super(props)
+          this.state={
+            email:"",
+            password:"",
+            confirm:""
+          }
+        }
+  handleUpdateState=(name,value)=>{
+   this.setState({
+    [name]:value
+   })
   }
-
+  handleOnSubmit = ()=>{
+    if (this.state.password !== this.state.confirm){
+       this.props.registerError("Passwords Dont match")
+    return;
+      }
+      this.props.createEmailAccount(this.state.email,this.state.password)
+  }
+render(){
+  const {navigation,auth} =this.props
   return (
     <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
       <View style={styles.container}>
@@ -57,8 +62,10 @@ export default function RegisterScreen({ navigation }) {
             style={styles.footer}
         >
         <View >
-          <Text style={styles.loginText}>Login</Text>
-          
+        {
+        auth.error.register && 
+         <Text style={{color:'red',textAlign:'center'}}>{auth.error.register}</Text>
+        }
           <View style={styles.inputView}>
             <Icon
               style={styles.inputIcon}
@@ -86,6 +93,10 @@ export default function RegisterScreen({ navigation }) {
               autoCapitalize='none'
               keyboardType='email-address'
               textContentType='emailAddress'
+              value={this.state.email}
+              onChangeText={(text)=>{
+                this.handleUpdateState('email',text)
+                }}
             />
           </View>
           <View style={styles.inputView}>
@@ -100,6 +111,10 @@ export default function RegisterScreen({ navigation }) {
               placeholder='Password'
               secureTextEntry={true}
               autoCapitalize='none'
+              value={this.state.password}
+              onChangeText={(text)=>{
+                this.handleUpdateState('password',text)
+                }}
             />
           </View>
           <View style={styles.inputView}>
@@ -114,14 +129,19 @@ export default function RegisterScreen({ navigation }) {
               placeholder='Confirm Password'
               secureTextEntry={true}
               autoCapitalize='none'
+              value={this.state.confirm}
+              onChangeText={(text)=>{
+                this.handleUpdateState('confirm',text)
+                }}
             />
           </View>
           <Text style={styles.fpText}>Forgot Password?</Text>
           <TouchableOpacity style={styles.loginButton}
-         
+         onPress={this.handleOnSubmit}
           >
             <Text style={styles.loginButtonText}>Register</Text>
           </TouchableOpacity>
+
           <TouchableOpacity style={styles.loginButton1}
            onPress={() => navigation.navigate('Login')}
           >
@@ -134,7 +154,7 @@ export default function RegisterScreen({ navigation }) {
     </TouchableWithoutFeedback>
   );
 }
-
+}
 const styles = StyleSheet.create({
   container: {
     flex: 1, 
@@ -187,7 +207,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
   },
   loginText: {
-    fontFamily: 'SourceSansProBold',
     fontSize: 24,
     marginTop: 12,
     marginBottom: 4,
@@ -207,7 +226,6 @@ const styles = StyleSheet.create({
   input: {
     height: 40,
     flex: 1,
-    fontFamily: 'SourceSansProRegular',
     fontSize: 16,
     color: '#333',
   },
@@ -229,32 +247,30 @@ const styles = StyleSheet.create({
   },
   loginButtonText: {
     color: '#fff',
-    fontFamily: 'SourceSansProBold',
     alignSelf: 'center',
     fontSize: 18,
   },
   loginButtonText1: {
     color: '#47bfff',
-    fontFamily: 'SourceSansProBold',
     alignSelf: 'center',
     fontSize: 18,
   },
   registerText: {
     alignSelf: 'center',
     marginTop: 12,
-    fontFamily: 'SourceSansProRegular',
     fontSize: 16,
   },
   fpText: {
     marginTop: 10,
     alignSelf: 'flex-end',
-    fontFamily: 'SourceSansProBold',
     fontSize: 16,
     color: '#47bfff',
   },
 });
 
-
-  
+const mapStateToProp =(state)=>{
+  return{auth:state}
+}
+export default connect(mapStateToProp,{createEmailAccount,registerError})(RegisterScreen);
   
   

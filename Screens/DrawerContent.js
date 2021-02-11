@@ -21,10 +21,11 @@ import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { MaterialIcons } from '@expo/vector-icons';
 import { Ionicons } from '@expo/vector-icons';
 import { FontAwesome5 } from '@expo/vector-icons';
+import {connect} from 'react-redux'
+import { logout } from '../src/redux/actions/authActions';
 
 
-
-export default function DrawerContent(props) {
+ function DrawerContent(props,{auth,logout}) {
     const [switchVal,setSwitchVal]= useState(false)
     return (
         <SafeAreaProvider>
@@ -108,7 +109,7 @@ export default function DrawerContent(props) {
                     </Drawer.Section>
            </View>
            </DrawerContentScrollView>
-           <Drawer.Section style={styles.bottomDrawerSection}>
+           <Drawer.Section style={styles.bottomDrawerSection}  onPress={logout}>
                 <DrawerItem 
                     icon={({color, size}) => (
                         <Icon 
@@ -118,7 +119,7 @@ export default function DrawerContent(props) {
                         />
                     )}
                     label="Sign Out"
-                    
+                   
                 />
             </Drawer.Section>
         </View>
@@ -171,3 +172,8 @@ const styles = StyleSheet.create({
       paddingHorizontal: 16,
     },
   });
+
+  const mapStateToProp =(state)=>{
+    return{auth:state}
+  }
+export default connect(mapStateToProp,{logout})(DrawerContent);
