@@ -4,9 +4,9 @@
     "slug": "Celestial-project",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/CYBN_logo_2-removebg-preview.png",
     "splash": {
-      "image": "./assets/river.png",
+      "image": "./assets/CYBN_logo_2-removebg-preview.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
@@ -21,7 +21,7 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
+        "foregroundImage": "./assets/CYBN_logo_2-removebg-preview.png",
         "backgroundColor": "#FFFFFF"
       }
     },
