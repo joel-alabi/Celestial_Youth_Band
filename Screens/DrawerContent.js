@@ -25,7 +25,7 @@ import {connect} from 'react-redux'
 import { logout } from '../src/redux/actions/authActions';
 
 
- function DrawerContent(props,{auth,logout}) {
+ function DrawerContent ({auth, logout, ...props}) {
     const [switchVal,setSwitchVal]= useState(false)
     return (
         <SafeAreaProvider>
@@ -47,18 +47,7 @@ import { logout } from '../src/redux/actions/authActions';
                             </TouchableOpacity>
                           
                       </View>
-                      <View style={styles.row}>
-                            <View style={styles.section}>
-                                <Paragraph style={[styles.paragraph, styles.caption]}>80</Paragraph>
-                                <Caption style={styles.caption}>Following</Caption>
-                            </View>
-                            <View style={styles.section}>
-                                <Paragraph style={[styles.paragraph, styles.caption]}>100</Paragraph>
-                                <Caption style={styles.caption}>Followers</Caption>
-                            </View> 
-                            
-                        </View>  
-                           
+                        
                     </View>
                     <Drawer.Section style={styles.drawerSection}>
                         <DrawerItem 
@@ -83,14 +72,7 @@ import { logout } from '../src/redux/actions/authActions';
                             label="Settings"
                             onPress={() => {props.navigation.navigate('Settings')}}
                         />
-                        
-                        <DrawerItem 
-                            icon={({color, size}) => (
-                                <MaterialIcons name="help-outline" size={26} color="#47bfff" />
-                            )}
-                            label="Help"
-                            onPress={() => {props.navigation.navigate('Help')}}
-                        />
+                       
                         </Drawer.Section>
                         <Drawer.Section title="Preferences">
                         <TouchableRipple >
@@ -109,8 +91,9 @@ import { logout } from '../src/redux/actions/authActions';
                     </Drawer.Section>
            </View>
            </DrawerContentScrollView>
-           <Drawer.Section style={styles.bottomDrawerSection}  onPress={logout}>
+           <Drawer.Section style={styles.bottomDrawerSection}  >
                 <DrawerItem 
+                onPress={logout}
                     icon={({color, size}) => (
                         <Icon 
                         name="exit-to-app" 
@@ -118,7 +101,7 @@ import { logout } from '../src/redux/actions/authActions';
                         size={size}
                         />
                     )}
-                    label="Sign Out"
+                    label="Log Out"
                    
                 />
             </Drawer.Section>

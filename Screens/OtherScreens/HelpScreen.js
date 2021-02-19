@@ -5,7 +5,7 @@ import { Text, View ,StyleSheet,Button } from 'react-native'
 export const HelpScreen = () => {
     return (
         <View style={styles.container}>
-        <Text>help Screen</Text>
+        <Text>Help Screen</Text>
         <Button
           title="Click Here"
           onPress={() => alert('Button Clicked!')}

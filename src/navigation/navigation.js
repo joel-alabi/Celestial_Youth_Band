@@ -16,6 +16,11 @@ import {HelpScreen} from '../../Screens/OtherScreens/HelpScreen'
 import { Profile } from '../../Screens/OtherScreens/Profile';
 const Drawer = createDrawerNavigator();
 import {connect} from 'react-redux'
+import AboutApp from '../../Screens/SettingScreen/AboutApp';
+import Contact from '../../Screens/SettingScreen/Contact';
+import Language from '../../Screens/SettingScreen/Language';
+import Notification from '../../Screens/SettingScreen/Notification';
+import RateUs from '../../Screens/SettingScreen/RateUs';
 
 
 function AppContainer({auth}) {
@@ -30,6 +35,13 @@ function AppContainer({auth}) {
           <Drawer.Screen name="SETTINGS" component={SettingScreen} />
           <Drawer.Screen name="Help" component={HelpScreen} />
           <Drawer.Screen name="profile" component={Profile}/>
+          <Drawer.Screen name="About" component={AboutApp}/>
+          <Drawer.Screen name="Contact" component={Contact}/>
+          <Drawer.Screen name="Language" component={Language}/>
+          <Drawer.Screen name="Notification" component={Notification}/>
+          <Drawer.Screen name="RateUs" component={RateUs}/>
+         
+      
         </Drawer.Navigator>
        </NavigationContainer>
       :
